@@ -1,11 +1,22 @@
 #zad 1 ------------------------------------------------------------------------------
 #i
 a <- c(1, 4, 6, 13, -10, 8)
+print(a)
+
 b <- seq(from = 1, to = 101, by = 2) #seq to ciag arytmetyczny
+print (b)
+
 c <- rep(c(4,7,9), each = 3) #powtórz wektor (4,7,9) 3 razy
+print(c)
+
 d <- c("czy", "to", "jest", "wektor", NA) #NA to brak danych
+print(d)
+
 e <- c("czy", "to", "jest", "wektor", "NA")
+print(e)
+
 f <- rep(c(4, 7, 9), times = 6) 
+print(f)
 
 
 #ii) Dla każdego wektora korzystając z odpowiednich funkcji 
