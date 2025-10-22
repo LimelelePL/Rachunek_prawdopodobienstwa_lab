@@ -6,7 +6,7 @@ print(a)
 b <- seq(from = 1, to = 101, by = 2) #seq to ciag arytmetyczny
 print (b)
 
-c <- rep(c(4,7,9), each = 3) #powtórz wektor (4,7,9) 3 razy
+c <- rep(c(4,7,9), each = 3) #powtórz wektor (4,7,9) 3 razy kazdy element
 print(c)
 
 d <- c("czy", "to", "jest", "wektor", NA) #NA to brak danych
@@ -15,7 +15,7 @@ print(d)
 e <- c("czy", "to", "jest", "wektor", "NA")
 print(e)
 
-f <- rep(c(4, 7, 9), times = 6) 
+f <- rep(c(4, 7, 9), times = 6)  #powtorz ciag 6 razy
 print(f)
 
 
@@ -36,8 +36,10 @@ print(aMin)
 aMax <- max(a, na.rm = FALSE)
 print(aMax)
 
+if (is.numeric(a)){
 aSum <- sum(a, na.rm = FALSE)
 print(aSum)
+} else print("wektor nie jest numeryczny")
 
 #--b--
 bLen <- length(b)
@@ -52,8 +54,10 @@ print(bMin)
 bMax <- max(b, na.rm = FALSE)
 print(bMax)
 
+if (is.numeric(b)){
 bSum <- sum(b, na.rm = FALSE)
 print(bSum)
+} else print("wektor nie jest numeryczny")
 
 #--c--
 
@@ -69,8 +73,10 @@ print(cMin)
 cMax <- max(c, na.rm = FALSE)
 print(cMax)
 
+if (is.numeric(c)){
 cSum <- sum(c, na.rm = FALSE)
 print(cSum)
+} else print("wektor nie jest numeryczny")
 
 #--d--
 
@@ -86,8 +92,11 @@ print(dMin)
 dMax <- max(d, na.rm = TRUE)
 print(dMax)
 
-dSum <- sum(d, na.rm = TRUE) # błąd bo typ char
+if (is.numeric(d)){
+dSum <- sum(d, na.rm = TRUE)
+# błąd bo typ char
 print(dSum)
+} else print("wektor nie jest numeryczny")
 
 #---e---
 
@@ -103,8 +112,11 @@ print(eMin)
 eMax <- max(e, na.rm = FALSE)
 print(eMax)
 
-eSum <- sum(e, na.rm = FALSE) # błąd bo typ char
+if (is.numeric(e)){
+eSum <- sum(e, na.rm = FALSE)
+# błąd bo typ char
 print(eSum)
+} else print("wektor nie jest numeryczny")
 
 #--f--
 
@@ -120,11 +132,14 @@ print(fMin)
 fMax <- max(f, na.rm = FALSE)
 print(fMax)
 
-fSum <- sum(f, na.rm = FALSE)
+if (is.numeric(f)) {
+fSum <- sum(f, na.rm = FALSE) 
 print(fSum)
+} else print("wektor nie jest numeryczny")
 
 # III Posortować wektory d) oraz e)
-
+# jak wektor zawiera elementy typu znakowego, to R porównuje najpierw pierwsze litery wyrazów
+# i sortuje je tak jak są w kolejnosci w tabeli ascii
 dSorted <- sort(d, decreasing = FALSE)
 print(dSorted)
 
@@ -137,10 +152,11 @@ print(eSorted)
 aPlusF <- a + f
 print(aPlusF)
 
+
 aMulF <- a * f
 print(aMulF)
 
-aPlusC <- a + c #tutaj bedzie zawijanie
+aPlusC <- a + c # zawijanie wektora a, mimo tego ze c nie jest wielokrotnoscia a
 print(aPlusC)
 
 aPlus10 <- a + 10
@@ -179,16 +195,27 @@ print(dMatrix)
 
 #ii) Wyznaczyć a) A+B, b) A+BT, c) AB d) A*A, e) D-1, f) DD-1
 # mnożenie macieży * to mnozenie element po elemencie
-# iloczyn macierzy %*% to iloczyn z algebyr
+# iloczyn macierzy %*% to iloczyn z algebry
 
-APlusB <- aMatrix + bMatrix # nie mozna dodać macierzy o niezgodnych rozmiarach
-print(APlusB)
+##all(x) sprawdza czy wszystkie elementy wektora logicznego sa TRUE
+##dim(x) zwraca wektor [ilosc wierszy, ilsoc kolumn]
 
+if (all(dim(aMatrix) == dim(bMatrix))){
+  APlusB <- aMatrix + bMatrix # nie mozna dodać macierzy o niezgodnych rozmiarach
+  print(APlusB)
+} else print("niezgodne wymiary macierzy")
+
+if ( all(dim(aMatrix) == dim(t(bMatrix)) )){
 APlusBTranspositin <- aMatrix + t(bMatrix) 
 print(APlusBTranspositin)
+} else print("niezgodne wymiary macierzy")
 
-AmultB <- aMatrix %*% bMatrix #niezgodne rozmiary
+
+if (ncol(aMatrix) == nrow(bMatrix)) {
+AmultB <- aMatrix %*% bMatrix 
 print(AmultB)
+} else print("niezgodne wymiary macierzy")
+
 
 AmultA <- aMatrix * aMatrix 
 print(AmultA)
@@ -201,11 +228,15 @@ print(DmultDrev)
 
 #iii) Rozwiązać równania a) CX = A, b) XD=A
 
+if(ncol(cMatrix) == nrow(aMatrix)){
 solutionA <- solve(cMatrix) %*% aMatrix
 print(solutionA)
+} else print("niezgodne wymiary macierzy")
 
+if(ncol(aMatrix) == nrow(dMatrix)){
 solutionB <- aMatrix %*% solve(dMatrix)
 print(solutionB)
+} else print("niezgodne wymiary macierzy")
 
 #zad 3 --------------------------------------------------------------------------------------------
 
@@ -243,8 +274,10 @@ print(a3Min)
 a3Max <- max(a3, na.rm = FALSE)
 print(a3Max)
 
+if(is.numeric(a3)){
 a3Sum <- sum(a3, na.rm = FALSE)
 print(a3Sum)
+}
 
 
 # --- b3 ---
@@ -260,8 +293,10 @@ print(b3Min)
 b3Max <- max(b3, na.rm = FALSE)
 print(b3Max)
 
+if(is.numeric(b3)){
 b3Sum <- sum(b3, na.rm = FALSE)
 print(b3Sum)
+}
 
 
 # --- c3 ---
@@ -277,8 +312,10 @@ print(c3Min)
 c3Max <- max(c3, na.rm = FALSE)
 print(c3Max)
 
+if(is.numeric(b3)) {
 c3Sum <- sum(c3, na.rm = FALSE)
 print(c3Sum)
+}
 
 
 # --- d3 ---
@@ -294,8 +331,10 @@ print(d3Min)
 d3Max <- max(d3, na.rm = FALSE)
 print(d3Max)
 
+if(is.numeric(d3)){
 d3Sum <- sum(d3, na.rm = FALSE)
 print(d3Sum)
+}
 
 
 # --- e3 ---
@@ -311,8 +350,10 @@ print(e3Min)
 e3Max <- max(e3, na.rm = FALSE)
 print(e3Max)
 
+if(is.numeric(e3)){
 e3Sum <- sum(e3, na.rm = FALSE)
 print(e3Sum)
+}
 
 
 # --- f3 ---
@@ -328,8 +369,10 @@ print(f3Min)
 f3Max <- max(f3, na.rm = FALSE)
 print(f3Max)
 
+if(is.numeric(f3)){
 f3Sum <- sum(f3, na.rm = FALSE)
 print(f3Sum)
+}
 
 
 #Posortować wektory b) oraz e)
@@ -354,31 +397,8 @@ print(a3Elem35th)
 a3Elems67thTo85Th <- a3[67:85]
 print(a3Elems67thTo85Th)
 
+# e) iloczynu wektorowego nie da sie zrobic bo te wektory nie są trójwymiarowe
 
-# a = (a1,a2,a3) b=(b1,b2,b3) bo iloczyn wektorowy musi byc w 3 wymiarach
-#          | i  j  k 
-# axb = det| a1 a2 a3| = ( det( a2 a3 ), -det( a1  a3 ), det ( a1 a2 ) ) 
-#          | b1 b2 b3|          b2 b3          b1  b3          b1 b2
-#wynikiem bedzie macierz 4 wektorów tutaj gdzie kazdy wektor to iloczyn wektorowy wektorów anxbn
-
-blocks <- length(d3) / 3
-result <- matrix(NA, nrow = blocks, ncol = 3)
-
-for (i in 1:blocks) {
-  #wybieramy odpowiednie trójki z wektorów d3 i e3 
-  a <- d3[((i - 1) * 3 + 1):(i * 3)]
-  b <- e3[((i - 1) * 3 + 1):(i * 3)]
-  # a ze wzoru wyzej a=(a1,a2,a3)
-  # b ze wzoru wyzej b=(b1,b2,b3)
-  
-  x <- det(matrix(c(a[2], a[3], b[2], b[3]), nrow = 2))
-  y <- -det(matrix(c(a[1], a[3], b[1], b[3]), nrow = 2))
-  z <- det(matrix(c(a[1], a[2], b[1], b[2]), nrow = 2))
-  
-  result[i, ] <- c(x, y, z)
-}
-
-print(result)
 
 #v) Które elementy w wektorze a, oraz ile, jest mniejsze niż 100?
 whichLessThan100a3 <- a3[which(a3 < 100)]
@@ -400,28 +420,45 @@ d4Matrix = matrix (c(1,3,2,2,5,3,4,7,2), ncol = 3)
 print(d4Matrix)
 
 #ii) Wyznaczyć a) A+B, b) AT+B, c) BA, d) B*B, e) C-1, f) CC-1
-A4plusB4 = a4Matrix + b4Matrix #niezgodne rozmiary
-print(A4plusB4)
 
+if(all(dim(a4Matrix) == dim(b4Matrix))){
+A4plusB4 = a4Matrix + b4Matrix 
+print(A4plusB4)
+} else print("niezgodne rozmiary macierzy")
+
+
+if(all(dim(t(a4Matrix)) == dim(b4Matrix))){
 A4TrPlusB4 = t(a4Matrix) + b4Matrix
 print(A4TrPlusB4)
+} else print("niezgodne rozmiary macierzy")
 
+if(ncol(b4Matrix) == nrow(a4Matrix)){
 B4multA4 = b4Matrix %*% a4Matrix
 print(B4multA4)
+} else print("niezgodne rozmiary macierze")
 
+if(all(dim(b4Matrix) == dim(b4Matrix))){
 B4multB4 = b4Matrix*b4Matrix
 print(B4multB4)
+} else print("niezgodne rozmiary macierzy")
 
 C4Rev = solve(c4Matrix)
 print(C4Rev)
 
 C4multC4Rev = c4Matrix%*%solve(c4Matrix)
-print(C4multC4Rev) #dziwny wynik przez przyblizenia komputera 
+print(C4multC4Rev) 
+#dziwny wynik przez przyblizenia komputera 
 
 #iii) Rozwiązać równania a) XC = B, b) DX=B
-solutionA4 = b4Matrix %*% solve(c4Matrix)
-solutionB4 = solve(d4Matrix) %*% b4Matrix
 
+if(ncol(b4Matrix) == nrow(c4Matrix)){
+solutionA4 = b4Matrix %*% solve(c4Matrix)
 print(solutionA4)
+} else print("niezgodne rozmiary macierzy");
+
+
+if(ncol(d4Matrix) == nrow(b4Matrix)){
+solutionB4 = solve(d4Matrix) %*% b4Matrix
 print(solutionB4)
+} else print("niezgodne rozmiary macierzy")
 
