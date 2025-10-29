@@ -9,7 +9,7 @@ print (b)
 c <- rep(c(4,7,9), each = 3) #powtórz wektor (4,7,9) 3 razy kazdy element
 print(c)
 
-d <- c("czy", "to", "jest", "wektor", NA) #NA to brak danych
+d <- c("czy", "to", "jest", "wektor", NA) #NA to brak danych 
 print(d)
 
 e <- c("czy", "to", "jest", "wektor", "NA")
