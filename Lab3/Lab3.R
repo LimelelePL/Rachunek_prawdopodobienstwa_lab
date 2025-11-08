@@ -1,0 +1,76 @@
+#zadanie 1
+# n=6 p=0.5
+# rozkład dwumianowy dbinom (x,size,prob)
+
+#	Rzucono monetą 6 razy. Niech X będzie liczbą reszek. Wyznaczyć
+#P(X = 5)
+#P(X ≥ 3)
+#P(2 ≤ X ≤ 4)
+#Narysować wykres rozkładu zmiennej X (funkcja: plot, type=”h”).
+
+
+z11 <- dbinom(5,6,0.5)
+z12 <- 1 -  pbinom(2,6,0.5) #bo P(x>=3) = 1 - P(x<=2)
+z13 <- pbinom(4,6,0.5) - pbinom(2,6,0.5) 
+
+x<- 0:6
+z14 <-plot(x, dbinom(x, 6, 0.5), type = "h",
+           col = "blue",
+           lwd = 2,
+           main = "Rozkład dwumianowy: n=6, p=0.5",
+           xlab = "x (liczba reszek)",
+           ylab = "P(X = x)" )
+
+#	Pewien salon średnio sprzedaje trzy samochody tygodniowo.
+#Niech X będzie liczbą samochodów sprzedanych w ciągu 2 tygodni. 
+#Zakładając, iż liczba samochodów sprzedanych przez firmę w dowolnym przedziale
+#czasu ma rozkład Poissona, wyznaczyć
+#P(X = 5)
+#P(X ≥ 4)
+#P(3 ≤ X ≤ 5)
+#Narysować wykres rozkładu zmiennej X dla 0≤x≤30.
+
+z21 <- dpois(5,3)
+z22 <- 1-ppois(3,3)
+z23 <- ppois(5,3) - ppois(3,3)
+x<- 0:30
+z24 <-plot(x, dpois(x,3), type = "h",
+           col = "blue",
+           lwd = 2,
+           main = "Rozkład dwumianowy: lambda=3",
+           xlab = "x - liczba samochodów ",
+           ylab = "P(X = x)" )
+
+#3. Zmienna X ma rozkład jednostajny na przedziale [4; 12]. Wyznaczyć 
+#i) P(X<7)
+#ii) P(5<X<11)
+#iii) P(X>10)
+#iv) Wyznaczyć x taki, że P(X>x)=0.6
+
+z31 <- punif(7,4,12)
+z32 <- punif(11,4,12) - punif(5,4,12)
+z33 <- 1 - punif(10,4,12)
+z34 <- qunif(0.4,4,12) #bo P(X<x) = 1 - 0.6
+
+#	Telefony przychodzą do pewnej centrali losowo z stałą
+#intensywnością 4 na minutę. Niech T będzie czasem między dwoma telefonami.
+#Wyznaczyć prawdopodobieństwo tego, iż czas między telefonami jest
+#większy niż 30s. 
+#mniejszy niż 20s.
+#między 40 a 80s.
+#Wyznaczyć czas t taki, że p’stwo, iż czas między telefonami jest większy niż t wynosi 0,2. 
+#Narysować wykres gęstości zmiennej T na przedziale 0≤t≤3.
+#[funkcja: plot, type=”l”, wynaczyć gęstość g(t) dla t∈{0,0.01,0.02,…,2.99,3}].
+
+z41 <- 1- dexp(30,4/60)
+z42 <- dexp(20,4)
+z43 <- dexp(80,4) - dexp(40,4) 
+z44 <- qexp(0.8,4)
+x<- seq(0, 3, by = 0.01)
+z45 <- plot(x, dexp(x,3), type = "l",
+            col = "blue",
+            lwd = 2,
+            main = "Rozkład wykladniczy: parametr = 4",
+            xlab = "t - czas miedzt dwoma telefonami ",
+            ylab = "P(T = t)" )
+
