@@ -62,9 +62,9 @@ z34 <- qunif(0.4,4,12) #bo P(X<x) = 1 - 0.6
 #Narysować wykres gęstości zmiennej T na przedziale 0≤t≤3.
 #[funkcja: plot, type=”l”, wynaczyć gęstość g(t) dla t∈{0,0.01,0.02,…,2.99,3}].
 
-z41 <- 1- dexp(30,4/60)
-z42 <- dexp(20,4)
-z43 <- dexp(80,4) - dexp(40,4) 
+z41 <- 1- pexp(30,4)
+z42 <- pexp(1/3,4)
+z43 <- pexp(4/3,4) - pexp(2/3,4) 
 z44 <- qexp(0.8,4)
 x<- seq(0, 3, by = 0.01)
 z45 <- plot(x, dexp(x,3), type = "l",
@@ -73,4 +73,31 @@ z45 <- plot(x, dexp(x,3), type = "l",
             main = "Rozkład wykladniczy: parametr = 4",
             xlab = "t - czas miedzt dwoma telefonami ",
             ylab = "P(T = t)" )
+
+#5.	Wzrost studentów X ma rozkład normalny z wartością oczekiwaną 170cm a 
+#wariancja 144cm2. Niech X będzie wzrost losowo wybranego studenta. Wyznaczyć
+#i)	P(X > 180)
+#ii)	P(X < 165)
+#iii)	P(155 < X < 190)
+#iv)	Wzrost k, taki że 10% osób jest wyższe niż k.
+
+#E(X) = 170 Var(X) = 144 -> o = 12 
+
+z51 <- 1-pnorm(180, 170,12)
+z52 <- pnorm(165, 170, 12)
+z53 <- pnorm(190, 170,12) - pnorm(155, 170, 12)
+z54 <- qnorm(0.9, 170, 12)
+
+#	Rzucono kostką 180 razy. Niech X będzie liczbą jedynek. Wyznaczyć
+#P(X = 27)
+#P(X ≥ 32)
+#P(X < 29)
+#P(25 ≤ X ≤ 33)
+
+z61 <- dbinom(27, 180, 1/6)
+z62 <- 1 - pbinom(31, 180, 1/6)
+z63 <- pbinom(28, 180, 1/6)
+z64 <- pbinom(33, 180, 1/6) - pbinom(24, 180, 1/6)
+
+
 
