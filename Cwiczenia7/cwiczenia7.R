@@ -12,23 +12,6 @@ cum_prob <- function (prob) {
   return(res)
 }
 
-binarySearchIndex <- function (cum_prob, u) {
-  low <- 1
-  high <- length (cum_prob)
-  result_index <- high
-  
-  while (low<=high) {
-    mid <- floor((low+high)/2)
-      
-    if(u<= cum_prob[mid]){
-      result_index = mid
-      high <- mid - 1
-    } else {
-      low <- mid + 1
-    }
-  }
-  return(result_index)
-}
 
 #zadanie 1
 #wartosci i prawdopodobienstwa musza byc uporządkowane malejąco
@@ -36,19 +19,21 @@ values <- c(2,1,3,5)
 probabilities <- c(0.4, 0.2, 0.3, 0.1)
 n <- 5
 
-#obliczamy wektor prawdopodobienstw skumulowanych
-cum_prob <- cum_prob(probabilities)
 
 draw_realizationU <- function (cum_prob, values, u, n) {
   realization <- array(0, n) # n to liczba losowań
   for (i in 1:n){
-    #efektywnie uzywamy wyszukiwania binarnego
-    j <- binarySearchIndex(cum_prob, u[i])
+    j<-1
+    while(u[i] > cum_prob[j]){
+      j<- j+1
+    }
     realization[i] <- values[j]
   }
   return(realization)
 }
 
+#obliczamy wektor prawdopodobienstw skumulowanych
+cum_prob <- cum_prob(probabilities)
 # generujemy 5 realizacji
 u <- c(0.641932, 0.019873, 0.171584,  0.263589, 0.663152)
 realizations <- draw_realizationU(cum_prob, values, u, n)
@@ -186,8 +171,8 @@ draw_realization4a <- function(u,n) {
 u <- c(0.641932, 0.019873, 0.171584,  0.263589, 0.663152,  0.985853,  0.641737,  0.476182,  0.991198,  0.288609)
 realizations4a <- draw_realization4a(sample(u,3),3)
 
-#liczba propozycji
-p <- 1/((b-a)*1)
+#liczba propozycji calka to pi
+p <- pi/((b-a)*1)
 result <- 1/p
 
 #b
