@@ -23,6 +23,8 @@ res <- numeric(rep)
 for (i in 1:rep) {
   trails <- 0
   
+  #symulacja procesu geometrycznego
+  #szukamy do momentu wystapienia sukcesu
   while(TRUE) {
     u <- runif(1)
     trails <- trails + 1

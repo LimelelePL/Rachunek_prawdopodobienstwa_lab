@@ -21,14 +21,14 @@ for (i in 1:rep) {
 #który losuje realizację z tego rozkładu za pomocą metody przyjęcia i odrzucenia.
 #ii) Wygenerować 200 realizacji z tego rozkładu za pomocą tego algorytmu.
 
+
+#ponieważ funkcja g określona jest na przedziale, korzystam z 
+# uproszczonej metody przyjecia i odrzucenia
 g <- function(x) {
   return(0.5*x)
 }
 a<-0
 b<-2
-
-#ponieważ funkcja g określona jest na przedziale, korzystam z 
-# uproszczonej metody przyjecia i odrzucenia
 
 rep <- 200
 maxG <- 0.5*2
