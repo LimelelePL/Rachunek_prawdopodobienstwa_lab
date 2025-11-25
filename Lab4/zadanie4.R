@@ -27,12 +27,12 @@ for (i in 1:rep) {
   #szukamy do momentu wystapienia sukcesu
   while(TRUE) {
     u <- runif(1)
-    trails <- trails + 1
     
     if (u<p) {
       res[i]<-trails
       break
     }
+    trails <- trails + 1
   }
 }
 

@@ -24,6 +24,8 @@ draw_realizationU <- function (cum_prob, values, u, n) {
   realization <- array(0, n) # n to liczba losowań
   for (i in 1:n){
     j<-1
+    #szukamy przedziału do którego wpadła zmienna u
+    #optymalne bo najbardziej prawdopodobne zdarzenia trafiaja na poczatek 
     while(u[i] > cum_prob[j]){
       j<- j+1
     }
@@ -44,26 +46,29 @@ realizations <- draw_realizationU(cum_prob, values, u, n)
 p <- 0.5
 n <- 2
 draw_realizationG <- function(p, u, n) {
-  res <- array(0,n)
-  index <- 1 # indeks w wektorze u
+  res <- numeric(n)
+  index <- 1
   
   for (i in 1:n) {
-    count <- 0 ## licznik rzutów w danej realizacji
-    while(TRUE) { 
-      if (u[index] < p) { ## wykonujemy petle aż będzie sukces
-        count <- count + 1 
-        index <- index + 1
-        res[i] <- count
-        break
-      } else {
-        count <- count + 1
-        index <- index + 1
+    trails <- 0
+    
+    while (index <= length(u)) {
+      
+      if (u[index] < p) { #aby byl sukces wylosowany przedzial musi byc mniejszy od p
+        res[i] <- trails            # zapisujemy liczbę porażek
+        index <- index + 1          
+        break                       # wychodzimy z geom dla tego i
       }
+      
+      trails <- trails + 1          # porażka zwiększamy licznik
+      index <- index + 1
+      
     }
   }
   
   return(res)
 }
+
 
 u <- c(0.641932, 0.019873, 0.171584,  0.263589, 0.663152)
 realizations <- draw_realizationG(p, u, n)
@@ -81,9 +86,8 @@ draw_realizationGP <- function(p, u, n) {
     k <- 1
     cum <- p  # P(X = 1)
     
-    # metoda prawdopodobieństw skumulowanych
-    while (u[i] > cum) {
-      k <- k + 1
+    while (u[i] > cum) { #czy  wylosowana wartość u_i znajduje się w bieżącym skumulowanym przedziale
+      k <- k + 1 # przechodzimy do nastepnej wartosci zmiennej losowej k - kolejnej próby
       cum <- cum + (1 - p)^(k - 1) * p
     }
     
@@ -95,13 +99,16 @@ draw_realizationGP <- function(p, u, n) {
 
 realizations <- draw_realizationGP(p, u, n)
 
-#zad 3
+#zad 3 
 #a)
 #dystrybuanta F(X) = x^2/4 F^-1(p) = 2sqrt(p) dla 0<=p<=1 (p to prawdopodobienstwo)
 
+#dystrybuanta
 f <- function(x) {
   return(x^2/4)
 }
+
+#odwrotnosc dystrybuanty
 g <- function(x) {
   return(2*sqrt(x))
 }
@@ -122,14 +129,18 @@ draw_realization3b <- function(u,n) {
   a<- 0 
   b<- 2
   res = array(0,n)
+  ui <- 1
   
   
   for (i in 1:n) {
-    while (TRUE) { #bo max(f(x)) = 1
+    while (TRUE) { #0.5x
       x <- runif(1,a,b)
-      if(u[i]< ( 0.5*x/f(2) )){
+      #u <- runif(1)
+      if(u[ui]< ( 0.5*x )){
         res[i] = x
         break
+      } else {
+        ui <- ui + 1
       }
     }
   }
@@ -155,11 +166,40 @@ draw_realization4a <- function(u,n) {
   a<- 0 
   b<- pi/2
   res = array(0,n)
+  ui <- 1
   
   for (i in 1:n) {
     while (TRUE) { #bo max(cosx) = cos 0 = 1
       x <- runif(1,a,b)
-      if(u[i]< ( f(x)/f(0) )){ 
+      if(u[ui]< ( f(x))){ 
+        res[i] = x
+        break
+      }
+      ui <- ui + 1
+    }
+  }
+  return(res)
+}
+
+u <- c(0.641932, 0.019873, 0.171584,  0.263589, 0.663152,  0.985853,  0.641737,  0.476182,  0.991198,  0.288609)
+realizations4a <- draw_realization4a(u,3)
+
+#liczba propozycji calka to pi
+p <- pi/((b-a)*1)
+result <- 1/p
+
+#b
+
+draw_realization4a <- function(n) {
+  a<- 0 
+  b<- pi/2
+  res = array(0,n)
+  
+  for (i in 1:n) {
+    while (TRUE) { #bo max(cosx) = cos 0 = 1
+      x <- runif(1,a,b)
+      u <- runif(1)
+      if(u< ( f(x))){ 
         res[i] = x
         break
       }
@@ -168,32 +208,25 @@ draw_realization4a <- function(u,n) {
   return(res)
 }
 
-u <- c(0.641932, 0.019873, 0.171584,  0.263589, 0.663152,  0.985853,  0.641737,  0.476182,  0.991198,  0.288609)
-realizations4a <- draw_realization4a(sample(u,3),3)
-
-#liczba propozycji calka to pi
-p <- pi/((b-a)*1)
-result <- 1/p
-
-#b
-
 draw_realization4b <- function(u,n) {
- k<- 0 #bo rozklad symetryczny wzgledem 0
+
  res <- array(0,n)
+ ui <- 1
  
 for (i in 1:n) {
-  x <- draw_realization4a(runif(1), 1)
-  if (u[i]<0.5) {
-    x<- 2*k-x
+  x <- draw_realization4a(1)
+  if (u[ui]<0.5) {
+    x<--x
   }
   res[i] <- x
+  ui <- ui + 1
 }
  return(res)
 }
 
 
 u <- c(0.641932, 0.019873, 0.171584,  0.263589, 0.663152,  0.985853,  0.641737,  0.476182,  0.991198,  0.288609)
-realizations4b <- draw_realization4b(sample(u,3),3)
+realizations4b <- draw_realization4b(u,3)
 
 
 
