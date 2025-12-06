@@ -5,12 +5,16 @@
 #b)	Zasymulować 600 rzutów kostką za pomocą procedury wyboru elementu ze zbioru z zwracaniem (polecenie „sample”). 
 
 #a
-x <- floor(6 * runif(600)) + 1
+x <- ceiling(6 * runif(600))
+
 m <- mean(x)
 v <- var(x)
+
 freq <- table(x)
+
 frame <- as.data.frame(freq)
-v_freq <- var(freq)
+v_freq <- var(frame$Freq)
+
 
 #b
 x <- sample(1:6, 600, replace = TRUE)

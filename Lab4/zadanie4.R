@@ -6,11 +6,13 @@ rep <- 100
 res <- numeric(rep)
 
 for (i in 1:rep) {
-  #generujemy 10 liczb losowych
+  #generujemy 10 liczb losowych 
   u <- runif(n)
   
-  #symulujemy 10 prób bernullego
-  res[i] <- length(which(u<p))
+  #symulujemy 10 prób bernoullego 
+  #sukces jest gdy p>u (1) wpp porażka (0)
+  #wynikiem jest ilosc sukcesów
+  res[i] <- length(which(p>u))
 }
 
 
@@ -21,18 +23,21 @@ rep <- 50
 res <- numeric(rep)
 
 for (i in 1:rep) {
-  trails <- 0
-  
-  #symulacja procesu geometrycznego
-  #szukamy do momentu wystapienia sukcesu
-  while(TRUE) {
+  #ilosc prób
+  tries <- 0
+  succes <- FALSE
+ 
+  #zliczamy ilosc prób do wystąpienia pierwszego sukcesu
+  while(!succes) {
     u <- runif(1)
     
-    if (u<p) {
-      res[i]<-trails
-      break
+    # wystąpił sukces 
+    if (p>u) {
+      res[i]<-tries+1
+      succes <- TRUE;
     }
-    trails <- trails + 1
+    
+    tries <- tries + 1
   }
 }
 

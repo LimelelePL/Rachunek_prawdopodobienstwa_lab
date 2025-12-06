@@ -190,31 +190,13 @@ result <- 1/p
 
 #b
 
-draw_realization4a <- function(n) {
-  a<- 0 
-  b<- pi/2
-  res = array(0,n)
-  
-  for (i in 1:n) {
-    while (TRUE) { #bo max(cosx) = cos 0 = 1
-      x <- runif(1,a,b)
-      u <- runif(1)
-      if(u< ( f(x))){ 
-        res[i] = x
-        break
-      }
-    }
-  }
-  return(res)
-}
-
 draw_realization4b <- function(u,n) {
 
  res <- array(0,n)
  ui <- 1
  
 for (i in 1:n) {
-  x <- draw_realization4a(1)
+  x <- draw_realization4a(u, 1)
   if (u[ui]<0.5) {
     x<--x
   }
@@ -228,7 +210,19 @@ for (i in 1:n) {
 u <- c(0.641932, 0.019873, 0.171584,  0.263589, 0.663152,  0.985853,  0.641737,  0.476182,  0.991198,  0.288609)
 realizations4b <- draw_realization4b(u,3)
 
+# Kod w języku R do wygenerowania wykresu rozrzutu:
+X <- c(0, 0, 1, 1)
+Y <- c(0, 1, 1, 2)
 
+plot(X, Y, 
+     main="Rozrzut dla Regresji Y względem X", 
+     xlab="X (Orły w pierwszym rzucie)", 
+     ylab="Y (Całkowita liczba orłów)",
+     xlim=c(-0.5, 1.5), 
+     ylim=c(-0.5, 2.5),
+     pch=16, # Kształt punktu (solid circle)
+     cex=2)  # Rozmiar punktu
+grid()
 
 
 
