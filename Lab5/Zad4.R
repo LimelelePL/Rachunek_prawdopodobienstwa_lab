@@ -9,5 +9,8 @@ mean_height <- 160
 #H1: mean_height != 160
 
 dane <- waga [waga$plec == 1,] $ Wzrost
-t.test(dane, mean_height, conf.level = 0.95)
+t.test(dane, mu = mean_height, conf.level = 0.95)
+
+#ponieważ p >0.05 mamy dowody na to, że H0 jest prawdziwa
+
 

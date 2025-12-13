@@ -13,8 +13,8 @@ print(head(oceny, 2)) # head(w.zmiennych/ramka, n) wypisuje n wierszy odpowiedni
 str(oceny) #mamy 4 obserwacje (wiersze, studenci), 4 zmienne (kolumny)
 
 srednia <- mean(oceny$analiza)
-  
-  # oceny$analiza wektor ocen z analizy
+
+# oceny$analiza wektor ocen z analizy
 
 srednia_kazdego <- (oceny$analiza + oceny$algebra) / 2
 

@@ -8,4 +8,6 @@ waga <- read.csv("C:/Users/Dudek/OneDrive/Pulpit/Repozytoria/Rachunek_prawdopodo
 n <- nrow( waga[(waga$plec == 0),])
 x <- length (waga[ (waga$plec == 0 & waga$Wzrost > 180) ,] $ Wzrost) #liczba sukcesow
 
-prop.test(x = dane, p = 0.25, n = n, conf.level = 0.95)
+prop.test(x, p = 0.25, n, conf.level = 0.95, correct = FALSE)
+
+#ponieważ p>0.05 mamy dowody na to, że hipoteza h0 jest prawdziwa

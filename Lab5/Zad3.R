@@ -11,5 +11,5 @@ s_height <- sd(waga$Wzrost)
 s_e_mean_height <- s_height / sqrt (n)
 t <- qnorm(1-alpha/2)
 
-przedzial <- Pair ( mean_height - s_e_mean_height*t + mean_height + s_e_mean_height*t  )
+przedzial <- Pair ( mean_height - s_e_mean_height*t, mean_height + s_e_mean_height*t  )
 
